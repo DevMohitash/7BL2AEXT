@@ -92,8 +92,8 @@ sync
 # Print device information prior to execution
 kmsg2 $(date) 
 kmsg2 "ButterLimits"
-kmsg2 "SeverBased v8.4.3"
-kmsg2 "Last Updated on 14-Sep-2021 17:11 [HH:MM] IST"
+kmsg2 "SeverBased v9.0.2"
+kmsg2 "Last Updated on 26-Sep-2021 14:06 [HH:MM] IST"
 kmsg2 "----"
 kmsg2 "Prop Tweaks already applied"
 kmsg2 "while boot"
