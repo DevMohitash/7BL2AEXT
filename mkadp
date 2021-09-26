@@ -24,13 +24,19 @@ pmd='pm disable'
 
 am start -a android.intent.action.MAIN -e toasttext "Removing Log files" -n mkadp.toast/.MainActivity
 
-$BB rm -rf $LOG
-$BB rm -rf $MODE
-$BB rm -rf $NEWLOG
-$BB rm -rf $NEWLOG2
-$BB rm -rf $LOGFU
-$BB rm -rf $LOGZR
-$BB rm -rf $CLOG
+LOGZR=/data/media/0/blzram.log
+LOGBL2=/data/media/0/.mkadp.log
+LOGBL1=/data/media/0/butterlimits.log
+CLOG=/data/media/0/YourBLchanges.log
+PLOG=/data/media/0/.mkadppost.log
+SLOG=/data/media/0/.mkadpservice.log
+
+rm -rf $LOGBL1
+rm -rf $LOGBL2
+rm -rf $LOGZR
+rm -rf $CLOG
+rm -rf $PLOG
+rm -rf $SLOG
 
 am start -a android.intent.action.MAIN -e toasttext "Enabling all services that were disable by ButterLimits" -n mkadp.toast/.MainActivity
 
@@ -84,12 +90,40 @@ $pme 'com.google.android.gsf/.update.SystemUpdateService$SecretCodeReceiver'
 
 am start -a android.intent.action.MAIN -e toasttext "Clearing App data" -n mkadp.toast/.MainActivity
 
+$BB rm -rf /data/data/com.mkadp.blapptwo
+$BB rm -rf /data/data/com.mkadp.blapp
+$BB rm -rf /data/data/com.mkadp.blapptwotbone
+$BB rm -rf /data/data/com.mkadp.blapptwotbonefone
+$BB rm -rf /data/data/com.mkadp.blappeft
 $BB rm -rf /data/data/com.mkadp.blappeftext
 
 am start -a android.intent.action.MAIN -e toasttext "Removing Module that will take affect after reboot..." -n mkadp.toast/.MainActivity
 
-$BB cp -rf /data/adb/modules/butterlimitsforop7poos11uni/system/etc/unbl/disable /data/adb/modules/butterlimitsforop7poos11uni/disable
-$BB cp -rf /data/adb/modules/butterlimitsforop7poos11uni/system/etc/unbl/remove /data/adb/modules/butterlimitsforop7poos11uni/remove
+IDSPATH=/data/adb
+IDPATH=$IDSPATH/modules/butterlimitsforop7poos11uni
+
+FILE1=$IDPATH/system/etc/mkadp/O/V4A
+if [ -f "$FILE1" ]; then
+	rm -rf $IDSPATH/modules/aml
+	rm -rf $IDSPATH/aml
+	rm -rf $IDSPATH/service.d/aml.sh
+	rm -rf $IDSPATH/modules/ViPER4AndroidFX
+fi
+
+FILE2=$IDPATH/system/etc/mkadp/O/bb
+if [ -f "$FILE2" ]; then
+	rm -rf $IDSPATH/modules/busybox-ndk
+fi
+
+FILE3=$IDPATH/system/etc/mkadp/O/animscale
+if [ -f "$FILE3" ]; then
+	settings put global window_animation_scale 1
+	settings put global transition_animation_scale 1
+	settings put global animator_duration_scale 1
+fi
+
+echo -n >$IDPATH/disable
+echo -n >$IDPATH/remove
 
 am start -a android.intent.action.MAIN -e toasttext "Wiping Cache and Dalvik Cache" -n mkadp.toast/.MainActivity
 
