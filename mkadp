@@ -127,6 +127,11 @@ if [ -f "$FILE3" ]; then
 	rm -rf $IDSPATH/modules/hosts
 fi
 
+FILE5=$IDPATH/system/etc/mkadp/O/blurs
+if [ -f "$FILE5" ]; then
+	rm -rf $IDSPATH/modules/enableblursandroid11
+fi
+
 echo -n >$IDPATH/disable
 echo -n >$IDPATH/remove
 
