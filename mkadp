@@ -122,6 +122,11 @@ if [ -f "$FILE3" ]; then
 	settings put global animator_duration_scale 1
 fi
 
+FILE4=$IDPATH/system/etc/mkadp/O/adaway
+if [ -f "$FILE3" ]; then
+	rm -rf $IDSPATH/modules/hosts
+fi
+
 echo -n >$IDPATH/disable
 echo -n >$IDPATH/remove
 
