@@ -92,8 +92,8 @@ sync
 # Print device information prior to execution
 kmsg2 $(date) 
 kmsg2 "ButterLimits"
-kmsg2 "SeverBased v9.1.0"
-kmsg2 "Last Updated on 02-Oct-2021 11:02 [HH:MM] IST"
+kmsg2 "SeverBased v9.6.0"
+kmsg2 "Last Updated on 16-Oct-2021 15:45 [HH:MM] IST"
 kmsg2 "----"
 kmsg2 "Prop Tweaks already applied"
 kmsg2 "while boot"
@@ -278,7 +278,7 @@ ctl /proc/sys/kernel/sched_rt_runtime_us 955000
 #ctl /proc/sys/net/core/netdev_max_backlog 128
 #ctl /proc/sys/net/core/netdev_tstamp_prequeue 0
 #ctl /proc/sys/net/ipv4/ipfrag_time 24
-ctl /proc/sys/net/ipv4/tcp_congestion_control westwood
+#ctl /proc/sys/net/ipv4/tcp_congestion_control westwood
 #ctl /proc/sys/net/ipv4/tcp_ecn 1
 #ctl /proc/sys/net/ipv4/tcp_fastopen 3
 #ctl /proc/sys/net/ipv4/tcp_sack 1
@@ -291,6 +291,40 @@ ctl /proc/sys/net/ipv4/tcp_congestion_control westwood
 #ctl /proc/sys/net/ipv4/tcp_no_metrics_save 1
 #ctl /proc/sys/net/ipv4/tcp_slow_start_after_idle 0
 #ctl /proc/sys/net/ipv6/ip6frag_time 48
+#
+ctl /proc/sys/net/ipv4/tcp_keepalive_probes 5
+ctl /proc/sys/net/ipv4/tcp_fin_timeout 30
+ctl /proc/sys/net/ipv4/tcp_moderate_rcvbuf 1
+ctl /proc/sys/net/ipv4/udp_rmem_min 6144
+ctl /proc/sys/net/ipv4/udp_wmem_min 6144
+ctl /proc/sys/net/ipv4/tcp_rfc1337 1
+ctl /proc/sys/net/ipv4/ip_no_pmtu_disc 0
+ctl /proc/sys/net/ipv4/tcp_ecn 0
+ctl /proc/sys/net/ipv4/tcp_wmem "6144 87380 2097152"
+ctl /proc/sys/net/ipv4/tcp_rmem "6144 87380 2097152"
+ctl /proc/sys/net/ipv4/tcp_synack_retries 2
+ctl /proc/sys/net/ipv4/tcp_syn_retries 2
+ctl /proc/sys/net/ipv4/ip_forward 0
+ctl /proc/sys/net/ipv4/tcp_window_scaling 1
+ctl /proc/sys/net/ipv4/conf/default/accept_source_route 0
+ctl /proc/sys/net/ipv4/conf/all/accept_source_route 0
+ctl /proc/sys/net/ipv4/conf/all/accept_redirects 0
+ctl /proc/sys/net/ipv4/conf/default/accept_redirects 0
+ctl /proc/sys/net/ipv4/conf/all/secure_redirects 0
+ctl /proc/sys/net/ipv4/conf/default/secure_redirects 0
+ctl /proc/sys/net/ipv4/tcp_tw_recycle 1
+ctl /proc/sys/net/ipv4/ip_dynaddr 0
+ctl /proc/sys/net/ipv4/tcp_timestamps 0
+ctl /proc/sys/net/ipv4/tcp_max_tw_buckets 1440000
+ctl /proc/sys/net/ipv4/tcp_mem "57344 57344 524288"
+ctl /proc/sys/net/ipv4/tcp_max_tw_buckets 1440000
+ctl /proc/sys/net/core/rmem_max 2097152
+ctl /proc/sys/net/core/wmem_max 2097152
+ctl /proc/sys/net/core/rmem_default 262144
+ctl /proc/sys/net/core/wmem_default 262144
+ctl /proc/sys/net/core/optmem_max 20480
+ctl /proc/sys/net/core/netdev_max_backlog 2500
+ctl /proc/sys/net/unix/max_dgram_qlen 50
 
 # VMemory tweaks big improved balance between performance and battery life;
 ctl /proc/sys/vm/drop_caches 1
@@ -402,7 +436,15 @@ ctl "${g}"/rq_affinity 2
 ctl "${g}"/iosched/slice_idle 0
 ctl "${g}"/iosched/low_latency 0
 ctl "${g}"/scheduler cfq
-ctl "${g}"/read_ahead_kb 128
+ctl "${g}"/read_ahead_kb 256
+ctl "${g}"/nr_requests 8192
+done
+
+am start -a android.intent.action.MAIN -e toasttext "Applying Mount-Related Tweaks..." -n mkadp.toast/.MainActivity
+# Remount all partitions with noatime
+for mkk in $($BB mount | grep relatime | cut -d " " -f3);
+do
+$BB mount -o remount,noatime $mkk;
 done
 
 am start -a android.intent.action.MAIN -e toasttext "Still Applying-01...Please Wait" -n mkadp.toast/.MainActivity
