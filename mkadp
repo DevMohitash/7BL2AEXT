@@ -240,7 +240,7 @@ ctl /sys/devices/system/cpu/cpu4/core_ctl/max_cpus 3
 ctl /sys/devices/system/cpu/cpu4/core_ctl/min_cpus 2
 
 # Other CPU tweaks
-ctl 1024 /dev/cpuctl/cpu.shares
+#ctl /dev/cpuctl/cpu.shares 1024
 
 
 # Force switch off some headache created by kernel logging in case kernel have it enabled;
