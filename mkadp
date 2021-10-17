@@ -430,12 +430,12 @@ ctl "${g}"/read_ahead_kb 256
 ctl "${g}"/nr_requests 8192
 done
 
-am start -a android.intent.action.MAIN -e toasttext "Applying Mount-Related Tweaks..." -n mkadp.toast/.MainActivity
+#am start -a android.intent.action.MAIN -e toasttext "Applying Mount-Related Tweaks..." -n mkadp.toast/.MainActivity
 # Remount all partitions with noatime
-for mkk in $($BB mount | grep relatime | cut -d " " -f3);
-do
-$BB mount -o remount,noatime $mkk;
-done
+#for mkk in $($BB mount | grep relatime | cut -d " " -f3);
+#do
+#$BB mount -o remount,noatime $mkk;
+#done
 
 am start -a android.intent.action.MAIN -e toasttext "Still Applying-01...Please Wait" -n mkadp.toast/.MainActivity
 
